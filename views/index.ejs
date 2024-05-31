@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bence Blog</title>
+    <link rel="stylesheet" href="styles/main.css" />
+</head>
+<body>
+
+    <h1>Bence Blog</h1>
+
+    <% messageText.forEach(message => { %>
+        <div>
+            <textarea id="message-<%= message.id %>" disabled name="message" rows="5" cols="60"><%= message.text %></textarea>
+            <button id="edit-<%= message.id %>" onclick="enableEdit(<%= message.id %>)">Edit</button>
+            <form id="save-form-<%= message.id %>" action="/edit/<%= message.id %>" method="POST" style="display: none;">
+                <input type="hidden" name="newMessage" id="newMessage-<%= message.id %>">
+                <button type="submit">Save</button>
+            </form>
+            <form action="/delete/<%= message.id %>" method="POST" style="display: inline;">
+        <button type="submit">Delete</button>
+    </form>
+        </div>
+    <% }) %>
+
+    <form action="/submit" method="POST">
+        <textarea name="message" rows="10" cols="30" placeholder="Ide írd a bejegyzést!"></textarea>
+        <br><br>
+        <input type="submit" value="Submit">
+    </form>
+
+    
+
+    <script>
+        function enableEdit(id) {
+            const textarea = document.getElementById(`message-${id}`);
+            const editButton = document.getElementById(`edit-${id}`);
+            const saveForm = document.getElementById(`save-form-${id}`);
+            const newMessageInput = document.getElementById(`newMessage-${id}`);
+            
+            textarea.disabled = false;
+            textarea.focus();
+            editButton.style.display = 'none';
+            saveForm.style.display = 'inline';
+
+            // Update the hidden input with the new message text when form is submitted
+            saveForm.addEventListener('submit', function() {
+                newMessageInput.value = textarea.value;
+            });
+        }
+    </script>
+
+</body>
+</html>
