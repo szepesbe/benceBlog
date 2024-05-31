@@ -12,7 +12,7 @@
 
     <% messageText.forEach(message => { %>
         <div>
-            <textarea id="message-<%= message.id %>" disabled name="message" rows="5" cols="40"><%= message.text %></textarea>
+            <textarea id="message-<%= message.id %>" disabled name="message" rows="5" cols="40"><%= message.text %></textarea><br>
             <button id="edit-<%= message.id %>" onclick="enableEdit(<%= message.id %>)">Edit</button>
             <form id="save-form-<%= message.id %>" action="/edit/<%= message.id %>" method="POST" style="display: none;">
                 <input type="hidden" name="newMessage" id="newMessage-<%= message.id %>">

@@ -23,6 +23,9 @@ textarea {
 h1 {
   font-size: 3.5rem;
 }
+button{
+  margin-bottom: 5px;
+}
 
 input {
   appearance: none;
